@@ -1,0 +1,151 @@
+
+@font-face {
+    font-family:Bloodthirsty;
+    src: url('HARRYP__.TTF') format('truetype');
+}
+
+body{
+    background-color: black;
+    color: white;
+}
+
+#root{
+    box-sizing: border-box;
+    width: 95%;
+    margin: 0 auto;
+    background-color: black;
+
+}
+
+#namePage{
+    font-family: Bloodthirsty;
+    font-size: 35px;
+}
+
+.primary{
+    display: flex;
+    justify-content:space-around;
+    height: 50px;
+    align-items:center; 
+}
+
+.input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.primary div{ 
+    text-decoration: none;
+}
+
+.colorFuente:link{
+    text-decoration: none;
+    font-size: 110%;
+}
+.colorFuente:visited{
+    color:white;
+}
+
+.secundary{
+    display: flex;
+    justify-content: space-around;
+}
+
+input{
+    width: 500px;
+    height: 40px;
+    border-radius: 5px;
+    background-color:rgba(12, 12, 12, 0.938);
+    color: cornsilk;
+}
+
+.movies{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto; 
+} 
+
+.movies div{
+    margin: 1%;
+    max-width: 100%;
+}
+
+img{
+    width: 300px;
+    height: 450px;
+    border-radius: 10px;
+}
+
+button{
+    background-color: black;
+    color: white;
+    border:0;
+    width: 300px;
+}
+
+.formulario{
+    display: flex;
+    justify-content:space-around;
+    flex-direction: column;
+    text-align: center;
+}
+
+.centro{
+    justify-content:space-around;
+    border-radius: 10px;
+    height: 300px;
+}
+
+.botonLogin{
+    font-size: 150%;
+}
+
+.singleMovie{
+    display: flex;
+    justify-content:space-around;
+    flex-direction: column;
+    text-align: center;  
+}
+
+@media(min-width: 1000px){
+    #namePage{
+        font-size: 30px;
+        color: white;
+    }
+}
+
+@media(min-width:870px) and (max-width:999px) {
+    #namePage{
+        font-size: 30px;
+        color: white;
+    }
+    input{
+        width: 350px;
+    }
+    .column2{
+        width: 200px;
+    }
+} 
+
+@media(max-width:869px) {
+    .primary{
+        width: 400px;
+    }
+    input{
+        width: 320px;
+    }
+  
+    .column{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .column2{
+        width: 600px;
+    }
+}
+
