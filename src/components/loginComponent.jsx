@@ -2,12 +2,11 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-import { UserContext } from "../../../index";
-import { useInput } from "../hooks/custom-hooks";
+import { UserContext } from "../";
+import { useInput } from "../hooks/custom-hook";
 import { error } from "../hooks/logs"; 
 
 export default () => {
-
   const { setUser } = useContext(UserContext);
   const history = useHistory();
   const email = useInput("email");
@@ -29,7 +28,6 @@ export default () => {
   return (
     <div className="formulario">
       <div className="centro">
-        <br/>
         <br/>
         <div><h2>Iniciar Sesion</h2></div>
         <br/>

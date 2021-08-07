@@ -1,4 +1,4 @@
-const db = require("./index");
+const db = require("../index");
 const S = require("sequelize");
 
 class Favorites extends S.Model {}
@@ -11,4 +11,3 @@ class Favorites extends S.Model {}
 { sequelize: db, modelName: "favorite" });
 
 module.exports = Favorites;
-

@@ -1,14 +1,14 @@
 // server configs
 const express = require("express")
 const app = express()
-const routes = require("../src/Backend/routes")
-const db = require("../db/index")
+const routes = require("./routes")
+const db = require("./db/index")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser");
 const sessions = require("express-session");
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
-const User = require("../db/users");
+const {Favorites, Users} = require("./db/models/index");
 
 
 // significa que vamos a user router
@@ -33,7 +33,7 @@ passport.use(
       passwordField: "password",
     },
     function (email, password, done) {
-      User.findOne({ where: { email } })
+      Users.findOne({ where: { email } })
         .then((user) => {
           if (!user) {
             // email not found
@@ -58,7 +58,7 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (id, done) {
-  User.findByPk(id)
+  Users.findByPk(id)
     .then((user) => {
       done(null, user);
     })
@@ -66,7 +66,6 @@ passport.deserializeUser(function (id, done) {
 });
 
 app.use("/api",routes)
-
 
 app.use((err,req,res,next) => {
     res.sendStatus(404).send(err)

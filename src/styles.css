@@ -14,7 +14,6 @@ body{
     width: 95%;
     margin: 0 auto;
     background-color: black;
-
 }
 
 #namePage{
@@ -149,3 +148,13 @@ button{
     }
 }
 
+.users-table{
+    border: 1px solid white;
+    color:white;
+}
+
+.table-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

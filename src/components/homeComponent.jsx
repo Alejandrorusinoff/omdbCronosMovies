@@ -1,8 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 
-export default function ({homes}) {
-   
+export const HomeComponent = ({homes}) => {
 
     return(
         <div className="movies">

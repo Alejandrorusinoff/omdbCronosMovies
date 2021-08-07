@@ -1,5 +1,5 @@
 "use strict";
-const db = require("./index");
+const db = require("../index");
 const S = require("sequelize");
 const bcrypt = require("bcrypt");
 
@@ -7,11 +7,28 @@ class Users extends S.Model {
     hash(password, salt) {
         return bcrypt.hash(password, salt);
     }
-}
+}  
     Users.init({ 
+        name: {
+            type: S.STRING,
+            allowNull: false,
+        },
+        lastName: {
+            type: S.STRING,
+            allowNull: false,
+        },
+        genero: {
+            type: S.STRING,
+            allowNull: false,
+        },
+        age: {
+            type: S.INTEGER,
+            allowNull: false,
+        },
         email: {
             type: S.STRING,
             allowNull: false,
+            unique: true,
             validate: {
                 isEmail: true
             }

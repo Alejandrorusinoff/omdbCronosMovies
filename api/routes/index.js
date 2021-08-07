@@ -1,6 +1,6 @@
 const express = require("express")
-const Users = require("../../../db/users")
-const Favorites = require("../../../db/favorites")
+const Users = require("../db/models/users")
+const Favorites = require("../db/models/favorites")
 const router = express.Router()
 const passport = require("passport");
 
@@ -13,7 +13,7 @@ router.get("/", (req,res,next) => {
 //busca todos los usuarios
 router.get("/register", (req,res,next) => {
     Users.findAll()
-    .then(users => res.send(users))
+    .then(users => res.json(users))
 })
 //busca un usuario por ID
 router.get("/register/:id", (req,res,next) => {
@@ -26,6 +26,10 @@ router.post("/register", (req,res,next) => {
     console.log("caiste en la ruta del post")
     console.log(req.body)
     Users.create({
+        name: req.body.name,
+        lastName: req.body.lastName,
+        genero: req.body.genero,
+        age: req.body.age,
         email: req.body.email,
         password: req.body.password
     })
@@ -90,4 +94,3 @@ router.use("/", function (req, res) {
 })
 
 module.exports = router
-

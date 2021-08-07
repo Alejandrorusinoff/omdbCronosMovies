@@ -1,24 +1,24 @@
 import React, {useContext, useState, useEffect} from 'react';
-import { Route, Redirect, Switch} from 'react-router-dom';
+import { Route, Redirect, Switch, useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import axios from 'axios'
-import Header from '../components/Header';
-import Login from '../components/Login';
-import Movies from '../components/Movies';
-import Register from '../components/Register';
-import SingleMovie from '../components/SingleMovie';
-import SingleUser from '../components/SingleUser';
-import Users from '../components/Users';
-import { UserContext } from "../../../index";
+import Header from './header';
+import Login from './login';
+import Movies from './movies';
+import Register from './register';
+import SingleMovie from './singleMovie';
+import Users from './users';
+import { UserContext } from "../index";
 import { log, success, error } from "../hooks/logs"; 
+
 
 export default function App(){
     const[movies, setMovies] = useState([])
     const[name, setName] = useState('')
     const[movie, setMovie] = useState({})
-    const[users, setUsers] = useState([])
     const[userID, setUserID] = useState('')
     const {setUser} = useContext(UserContext);
+    const history = useHistory()
 
     //busca peliculas
     useEffect(()=>{
@@ -26,12 +26,6 @@ export default function App(){
         .then(res => res.data.Search)
         .then(searchMovies => setMovies(searchMovies))
     },[name])
-
-    useEffect(()=>{
-        axios.get("/api/register")
-        .then(res => res.data)     
-        .then(usersServer => setUsers(usersServer))
-    },[])
 
     useEffect(() => {
         log(`fetching user...`);
@@ -48,7 +42,6 @@ export default function App(){
 
     function handleChange(evento){
         const value = evento.target.value
-    
         setName(value)
     }
 
@@ -57,42 +50,42 @@ export default function App(){
         axios.get(`http://www.omdbapi.com/?i=tt3896198&apikey=aae34333&s=${name}`)
         .then(res => (res.data.Search))
         .then(searchName => setMovies(searchName))
+        .then(()=> history.push(`/movies/${name}`))
     };
 
     function selectedMovie(movieId) {
         axios.get(`http://www.omdbapi.com/?i=${movieId}&apikey=aae34333`)
         .then(res => res.data)
         .then(movieServer => setMovie(movieServer))
+        .then(()=> setName(''))
     }
 
-    function selectedUser(userId) {
-        axios.get(`/api/register/${userId}`)
-        .then(res => res.data)
+    function selectedUser() {
+        axios.get(`/api/register/`)
+        .then(res => console.log(res.data))
         .then(userServer => setUserID(userServer))
     }
-
     return(
         <div>
             <Header handleChange={handleChange} handleSubmit={handleSubmit} name={name}/>
             <Switch>
                 <Route path="/register" render={()=><Register/>}/>
                 <Route path="/login" render={()=><Login/>}/>
-                <Route path="/users/:id" render={({match})=> 
-                <SingleUser selectedUser={selectedUser} 
-                userId={match.params.id}
-                user={userID}/> }/>
-                <Route path="/users" render={()=><Users users={users}/>}/>
-                <Route path="/movies/:id" 
-                render={({match})=> 
+    
+                <Route path="/users" render={()=><Users/>}/>
+               
+                <Route path="/movies/:name/:id" 
+                render={({match})=>
                 <SingleMovie selectedMovie={selectedMovie} 
                 movieId={match.params.id} 
-                movie={movie}/>}/>
-                <Route exact path="/movies" render={()=> <Movies movies={movies}/>}/>
+                movie={movie}
+                name={name}/>}/>
+
+                <Route exact path="/movies/:name" render={()=> <Movies movies={movies} name={name}/>}/>
+                <Route exact path="/movies/" render={()=> <Movies movies={movies}/>}/>
                 <Route path="/favorites" render={()=><h1>favoritas</h1>}/>
                 <Redirect from="/" to="/movies" />
             </Switch>
         </div>
     )
 }
-
-

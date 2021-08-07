@@ -1,13 +1,9 @@
 import React, { useState, createContext }  from "react";
 import {render} from "react-dom";
 import "./index.css";
-import App from './views/Frontend/containers/index'
+import App from './containers/index'
 import './styles.css';
-import { BrowserRouter, Route } from 'react-router-dom';
-import {Provider} from 'react-redux';
-import store from './views/Frontend/store/store'
-import ReactDOM from 'react-dom';
-
+import { BrowserRouter } from 'react-router-dom';
 
 export const UserContext = createContext();
 
